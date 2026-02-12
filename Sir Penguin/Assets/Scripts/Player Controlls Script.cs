@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -27,17 +28,19 @@ public class PlayerController3D : MonoBehaviour
     public float lookSensitivity = 120f;
     [SerializeField]
     private Transform CameraHolder;
+    [SerializeField]
+    private Transform PlayerCamera;
     public float minLookX = -60f;
     public float maxLookX = 60f;
-
+    [SerializeField]
+    private Camera playerCam;
     private float xRotation;
-
+    [SerializeField]
+    private float maxDistance, minDistance;
 
     //Interactions
     private GameObject InteractableObject;
     public LayerMask Interact;
-    [SerializeField]
-    private Transform RayPoint;
 
 
     //Attack
@@ -49,12 +52,11 @@ public class PlayerController3D : MonoBehaviour
     private GameObject heldWeapon;
     [SerializeField]
     private Transform HoldingPosition;
-    public LayerMask EnemyLayer;
     [SerializeField]
     private int AimDistance;
-    public GameObject EnemyTarget;
-    [SerializeField]
-    private Transform AimPoint;
+    private ShootManager ShootScript;
+    private bool isShooting;
+
 
     //UI controls
     [Header("UI controls")]
@@ -76,6 +78,13 @@ public class PlayerController3D : MonoBehaviour
     private bool isJumping;
     [SerializeField]
     private List<string> AnimationBools;
+
+    //Player Outline
+    [Header("Enemy Stats")]
+    public Outline OtherPlayersOutline;
+    public GameObject OtherPlayer;
+    private PlayerController3D otherPlayersScript;
+    public Outline myOutline;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -84,8 +93,6 @@ public class PlayerController3D : MonoBehaviour
 
     void Start()
     {
-        playerInputmNagerHolder = GameObject.FindGameObjectWithTag("PlayerManager");
-        playerInputManager = playerInputmNagerHolder.GetComponent<PlayerInputManager>();
         animator = GetComponent<Animator>();
         rb.freezeRotation = true;
         Cursor.lockState = CursorLockMode.Locked;
@@ -93,8 +100,8 @@ public class PlayerController3D : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         RunSpeed = speed * SpeedMultiplier;
-
-        PausePanel.SetActive(false);
+        ShootScript = GetComponent<ShootManager>();
+       // PausePanel.SetActive(false);
     }
 
     // MOVEMENT
@@ -173,11 +180,29 @@ public class PlayerController3D : MonoBehaviour
     {
         if (context.performed)
         {
-            
+            ShootScript.isRunning = true;
+            ShootScript.isShooting = true;
+            isShooting = true;
         }
         else if (context.canceled)
         {
-           
+            ShootScript.isRunning = false;
+            ShootScript.isShooting = false;
+            isShooting = false;
+        }
+    }
+
+    public void OnScope(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            playerCam.fieldOfView = 10;
+            lookSensitivity = 40;
+        }
+        else if(context.canceled)
+        {
+            playerCam.fieldOfView = 60;
+            lookSensitivity = 120;
         }
     }
 
@@ -185,7 +210,7 @@ public class PlayerController3D : MonoBehaviour
     {
         if (context.canceled)
         {
-            Ray ray = new Ray(RayPoint.position, RayPoint.forward);
+            Ray ray = new Ray(PlayerCamera.position, PlayerCamera.forward);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, 5f, Interact))
@@ -195,9 +220,41 @@ public class PlayerController3D : MonoBehaviour
         }
     }
 
+
+
+    private void checkForOtherPlayer()
+    {
+        Ray ray = new Ray(PlayerCamera.position, PlayerCamera.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 1000f))
+        {
+            if (hit.collider.CompareTag("Player1") || hit.collider.CompareTag("Player2"))
+            {
+                OtherPlayer = hit.collider.gameObject;
+                if (OtherPlayer != null)
+                {
+                   otherPlayersScript = OtherPlayer.GetComponent<PlayerController3D>();
+                    otherPlayersScript.myOutline.OutlineWidth = 10;
+                }
+                else if(OtherPlayer == null)
+                {
+                    OtherPlayersOutline.OutlineWidth = 10;
+                }
+            }
+            else
+            {
+                otherPlayersScript = OtherPlayer.GetComponent<PlayerController3D>();
+                otherPlayersScript.myOutline.OutlineWidth = 0;
+                otherPlayersScript = null;
+                OtherPlayer = null;
+            }
+        }
+    }
+
     void CheckForInteraction()
     {
-        Ray ray = new Ray(RayPoint.position, RayPoint.forward);
+        Ray ray = new Ray(PlayerCamera.position, PlayerCamera.position);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 5f, Interact))
@@ -215,7 +272,9 @@ public class PlayerController3D : MonoBehaviour
         Vector3 move = rb.position + transform.TransformDirection(moveInput) * speed * Time.fixedDeltaTime;
         rb.MovePosition(move);
         CheckForInteraction();
+
         
+
     }
 
     void LateUpdate()
@@ -231,7 +290,17 @@ public class PlayerController3D : MonoBehaviour
 
         CameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        
+
+        float pitch = xRotation;
+
+        // Normalize pitch to 0–1
+        float t = Mathf.InverseLerp(minLookX, maxLookX, pitch);
+
+        // Zoom camera based on pitch
+        float distance = Mathf.Lerp(minDistance, maxDistance, t);
+
+        // Apply zoom
+        PlayerCamera.localPosition = new Vector3(0f, 0f, distance);
         //Animations
         if (moveInput.x > 0 || moveInput.z > 0 || moveInput.x < 0 || moveInput.z < 0)
         {
@@ -243,7 +312,15 @@ public class PlayerController3D : MonoBehaviour
                 }
                 else if (speed != RunSpeed)
                 {
-                    PlayWalk();
+
+                    if (!isShooting)
+                    {
+                        PlayWalk();
+                    }
+                    else if (isShooting)
+                    {
+                        PlayWalkAndShoot();
+                    }
                 }
             }
             else if (!IsGrounded())
@@ -256,7 +333,15 @@ public class PlayerController3D : MonoBehaviour
         {
             if (IsGrounded())
             {
-                PlayIdle();
+
+                if (!isShooting)
+                {
+                    PlayIdle();
+                }
+                else if (isShooting)
+                {
+                    playShoot();
+                }
             }
             else if (!IsGrounded())
             {
@@ -264,6 +349,7 @@ public class PlayerController3D : MonoBehaviour
 
             }
         }
+
 
     }
 
@@ -295,18 +381,22 @@ public class PlayerController3D : MonoBehaviour
         playerAnimations.SetBool(AnimationBools[1], true);
     }
 
-    IEnumerator PlayShoot()
+    void playShoot()
     {
-
         for (int i = 0; i < AnimationBools.Count; i++)
         {
             playerAnimations.SetBool(AnimationBools[i], false);
         }
         playerAnimations.SetBool(AnimationBools[3], true);
+    }
 
-        yield return new WaitForSeconds(0.5f);
-        playerAnimations.SetBool(AnimationBools[3], false);
-
+    void PlayWalkAndShoot()
+    {
+        for (int i = 0; i < AnimationBools.Count; i++)
+        {
+            playerAnimations.SetBool(AnimationBools[i], false);
+        }
+        playerAnimations.SetBool(AnimationBools[5], true);
     }
 
 
