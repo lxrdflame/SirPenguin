@@ -183,6 +183,7 @@ public class PlayerController3D : MonoBehaviour
             ShootScript.isRunning = true;
             ShootScript.isShooting = true;
             isShooting = true;
+            ShootScript.OnShoot();
         }
         else if (context.canceled)
         {

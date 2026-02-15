@@ -13,7 +13,7 @@ public class ShootManager : MonoBehaviour
     private Transform ShootPoint;
     private SnowballController SnowBallScript;
     public bool isRunning;
-
+    public Transform PlayerCamera;
     private void FixedUpdate()
     {
         if (!isRunning)
@@ -23,7 +23,7 @@ public class ShootManager : MonoBehaviour
     }
 
 
-    void OnShoot()
+    public void OnShoot()
     {
         StartCoroutine(Shoot());
     }
@@ -32,9 +32,18 @@ public class ShootManager : MonoBehaviour
         if (isShooting)
         {
             yield return new WaitForSeconds(ShootRate);
+            Ray ray = new Ray(PlayerCamera.position, PlayerCamera.forward);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100f))
+            {
+                targetPoint = hit.point;
+            }
             GameObject SnowBall = Instantiate(snowBallPrefab, ShootPoint.position, Quaternion.identity);
             SnowBallScript = SnowBall.GetComponent<SnowballController>();
             SnowBallScript.targetPoint = targetPoint;
+            StartCoroutine(Shoot());
+
         }
 
     }

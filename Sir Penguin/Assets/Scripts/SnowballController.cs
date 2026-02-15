@@ -8,6 +8,6 @@ public class SnowballController : MonoBehaviour
 
     private void Update()
     {
-        Vector3.MoveTowards(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPoint, moveSpeed * Time.deltaTime);
     }
 }
