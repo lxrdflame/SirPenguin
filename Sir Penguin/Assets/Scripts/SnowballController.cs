@@ -9,5 +9,9 @@ public class SnowballController : MonoBehaviour
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, targetPoint, moveSpeed * Time.deltaTime);
+        if (transform.position == targetPoint )
+        {
+            Destroy(gameObject, 3);
+        }
     }
 }

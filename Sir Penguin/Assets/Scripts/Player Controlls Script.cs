@@ -57,6 +57,9 @@ public class PlayerController3D : MonoBehaviour
     private ShootManager ShootScript;
     private bool isShooting;
 
+    //Sniper UI
+    public GameObject SniperScopeUi;
+
 
     //UI controls
     [Header("UI controls")]
@@ -85,6 +88,14 @@ public class PlayerController3D : MonoBehaviour
     public GameObject OtherPlayer;
     private PlayerController3D otherPlayersScript;
     public Outline myOutline;
+
+    //Slide Stats
+    [Header("Slide Stats")]
+    public float forceAmount = 20f;
+    public float forceDuration = 1f;
+    private bool isRunning;
+    private bool isSliding;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -168,10 +179,12 @@ public class PlayerController3D : MonoBehaviour
     {
         if (context.performed)
         {
+            isRunning = true;
             speed = speed * SpeedMultiplier;
         }
         else if (context.canceled)
         {
+            isRunning = false;
             speed = speed / SpeedMultiplier;
         }
     }
@@ -199,11 +212,14 @@ public class PlayerController3D : MonoBehaviour
         {
             playerCam.fieldOfView = 10;
             lookSensitivity = 40;
+            SniperScopeUi.SetActive(true);
         }
         else if(context.canceled)
         {
             playerCam.fieldOfView = 60;
             lookSensitivity = 120;
+            SniperScopeUi.SetActive(false);
+
         }
     }
 
@@ -221,6 +237,26 @@ public class PlayerController3D : MonoBehaviour
         }
     }
 
+    public void OnSlide(InputAction.CallbackContext context)
+    {
+        if (isRunning)
+        {
+            if (context.canceled)
+            {
+                StartCoroutine(SlideAnimation());
+            }
+        }
+    }
+
+    IEnumerator SlideAnimation()
+    {
+        isSliding = true;
+        rb.AddForce(transform.forward * forceAmount, ForceMode.Force);
+        yield return new WaitForSeconds(forceDuration);
+
+        isSliding = false;
+
+    }
 
 
     private void checkForOtherPlayer()
@@ -309,7 +345,14 @@ public class PlayerController3D : MonoBehaviour
             {
                 if (speed == RunSpeed)
                 {
-                    PlayRun();
+                    if (isSliding)
+                    {
+                        PlaySlide();
+                    }
+                    else if (!isSliding)
+                    {
+                        PlayRun();
+                    }
                 }
                 else if (speed != RunSpeed)
                 {
@@ -371,6 +414,15 @@ public class PlayerController3D : MonoBehaviour
             playerAnimations.SetBool(AnimationBools[i], false);
         }
         playerAnimations.SetBool(AnimationBools[0], true);
+    }
+
+    void PlaySlide()
+    {
+        for (int i = 0; i < AnimationBools.Count; i++)
+        {
+            playerAnimations.SetBool(AnimationBools[i], false);
+        }
+        playerAnimations.SetBool(AnimationBools[4], true);
     }
 
     void PlayRun()

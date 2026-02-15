@@ -4867,7 +4867,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -2.02, y: 1.642, z: 2.23297}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8386810555205734621}
@@ -9750,7 +9750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SnowballController
   targetPoint: {x: 0, y: 0, z: 0}
-  moveSpeed: 300
+  moveSpeed: 1000
 --- !u!1 &4396680515158045784
 GameObject:
   m_ObjectHideFlags: 0

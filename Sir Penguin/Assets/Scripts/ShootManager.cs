@@ -35,7 +35,7 @@ public class ShootManager : MonoBehaviour
             Ray ray = new Ray(PlayerCamera.position, PlayerCamera.forward);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 100f))
+            if (Physics.Raycast(ray, out hit, 10000f))
             {
                 targetPoint = hit.point;
             }
