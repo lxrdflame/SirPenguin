@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
     public enum State
     {
-        Idle,
+        Patrol,
         Chase,
         Attack
     }
@@ -12,22 +13,27 @@ public class EnemyAi : MonoBehaviour
     public State currentState;
 
     public Transform player;
-    private CharacterController controller;
+    private NavMeshAgent agent;
     private Animator animator;
 
-    public float moveSpeed = 3f;
     public float detectionRange = 10f;
     public float attackRange = 2f;
 
+    public Transform[] patrolPoints;
+    private int patrolIndex;
+
+    private bool isAttacking = false;
+
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-
         if (playerObj != null)
             player = playerObj.transform;
+
+        GoToNextPatrolPoint();
     }
 
     void Update()
@@ -41,28 +47,45 @@ public class EnemyAi : MonoBehaviour
         else if (distance <= detectionRange)
             currentState = State.Chase;
         else
-            currentState = State.Idle;
+            currentState = State.Patrol;
 
         switch (currentState)
         {
-            case State.Idle:
-                animator.SetBool("isMoving", false);
+            case State.Patrol:
+                isAttacking = false;
+                animator.ResetTrigger("Attack");
+
+                if (!agent.pathPending && agent.remainingDistance < 0.5f)
+                    GoToNextPatrolPoint();
                 break;
 
             case State.Chase:
-                animator.SetBool("isMoving", true);
+                isAttacking = false;
+                animator.ResetTrigger("Attack");
 
-                Vector3 dir = (player.position - transform.position).normalized;
-                dir.y = 0;
-
-                transform.forward = dir;
-                controller.Move(dir * moveSpeed * Time.deltaTime);
+                agent.SetDestination(player.position);
                 break;
 
             case State.Attack:
-                animator.SetBool("isMoving", false);
-                animator.SetTrigger("Attack");
+                agent.ResetPath();
+
+                if (!isAttacking)
+                {
+                    animator.SetTrigger("Attack");
+                    isAttacking = true;
+                }
                 break;
         }
+
+        bool isMoving = agent.velocity.magnitude > 0.1f;
+        animator.SetBool("isMoving", isMoving);
+    }
+
+    void GoToNextPatrolPoint()
+    {
+        if (patrolPoints.Length == 0) return;
+
+        agent.SetDestination(patrolPoints[patrolIndex].position);
+        patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
     }
 }
