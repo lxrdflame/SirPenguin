@@ -828,7 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController3D
   moveInput: {x: 0, y: 0, z: 0}
-  speed: 5
+  speed: 8
   jumpForce: 10
   SpeedMultiplier: 2
   lookSensitivity: 120
