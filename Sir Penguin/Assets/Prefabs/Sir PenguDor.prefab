@@ -755,6 +755,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6780403818302548801}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -346703281096887382}
   m_SourcePrefab: {fileID: 100100000, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
 --- !u!4 &2311048516861987426 stripped
 Transform:
@@ -1094,6 +1097,19 @@ MonoBehaviour:
   ShootPoint: {fileID: 1885250848425711741}
   isRunning: 0
   PlayerCamera: {fileID: 3572165847722631165}
+--- !u!114 &-346703281096887382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3123720012736549080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29fd3c12d1c370a45b118cb8125c8b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentalInteractions
+  jumpForce: 30
 --- !u!4 &4704055274570241056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1814688667286750807, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
