@@ -838,7 +838,7 @@ MonoBehaviour:
   CameraHolder: {fileID: 3979311367603927463}
   PlayerCamera: {fileID: 3572165847722631165}
   minLookX: -43
-  maxLookX: -15
+  maxLookX: 0
   playerCam: {fileID: 5306145974522089701}
   maxDistance: -3.18
   minDistance: -1
@@ -1109,7 +1109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fd3c12d1c370a45b118cb8125c8b57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentalInteractions
-  jumpForce: 30
+  jumpForce: 18
 --- !u!4 &4704055274570241056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1814688667286750807, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
