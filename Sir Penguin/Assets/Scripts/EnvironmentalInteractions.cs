@@ -4,7 +4,7 @@ public class EnvironmentalInteractions : MonoBehaviour
 {
     private Rigidbody rb;
     [SerializeField] private int jumpForce;
-
+    [SerializeField] private PlayerWallet playerWalletScript;
 
     private void Start()
     {
@@ -16,6 +16,10 @@ public class EnvironmentalInteractions : MonoBehaviour
         if (other.CompareTag("Pad"))
         {
             OnJumpPad();
+        }
+        else if (other.CompareTag("Pebble"))
+        {
+            playerWalletScript.AddPebbles(1);
         }
     }
     public void OnJumpPad()
