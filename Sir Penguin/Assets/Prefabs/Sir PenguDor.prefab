@@ -1086,9 +1086,6 @@ PrefabInstance:
       addedObject: {fileID: -346703281096887382}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 917947757860574658}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -3941475812643909995}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
       insertIndex: -1
@@ -1096,6 +1093,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8290702725621033224}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 211757273509364819}
   m_SourcePrefab: {fileID: 100100000, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
 --- !u!4 &2311048516861987426 stripped
 Transform:
@@ -1443,29 +1443,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnvironmentalInteractions
   jumpForce: 18
---- !u!136 &917947757860574658
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3123720012736549080}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.95
-  m_Height: 2.9346755
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.3071021, z: 0}
 --- !u!114 &-3941475812643909995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1512,6 +1489,27 @@ MonoBehaviour:
   Indicator: {fileID: 6845665122172348920}
   indicatorMaterial: {fileID: 0}
   indicatorMesh: {fileID: 0}
+--- !u!65 &211757273509364819
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3123720012736549080}
+  m_Material: {fileID: 13400000, guid: 1e17c7c99aaebe44a9ddf37bce8decfd, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.0737123, y: 2.6961157, z: 1.82107}
+  m_Center: {x: 0.053960085, y: 1.1605061, z: -0.0068525076}
 --- !u!4 &4704055274570241056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1814688667286750807, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}

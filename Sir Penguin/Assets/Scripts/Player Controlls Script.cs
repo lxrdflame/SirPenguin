@@ -112,7 +112,7 @@ public class PlayerController3D : MonoBehaviour
 
         RunSpeed = speed * SpeedMultiplier;
         ShootScript = GetComponent<ShootManager>();
-       // PausePanel.SetActive(false);
+        // PausePanel.SetActive(false);
     }
 
     // MOVEMENT
@@ -214,7 +214,7 @@ public class PlayerController3D : MonoBehaviour
             lookSensitivity = 40;
             SniperScopeUi.SetActive(true);
         }
-        else if(context.canceled)
+        else if (context.canceled)
         {
             playerCam.fieldOfView = 60;
             lookSensitivity = 120;
@@ -232,7 +232,7 @@ public class PlayerController3D : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 5f, Interact))
             {
-               
+
             }
         }
     }
@@ -271,10 +271,10 @@ public class PlayerController3D : MonoBehaviour
                 OtherPlayer = hit.collider.gameObject;
                 if (OtherPlayer != null)
                 {
-                   otherPlayersScript = OtherPlayer.GetComponent<PlayerController3D>();
+                    otherPlayersScript = OtherPlayer.GetComponent<PlayerController3D>();
                     otherPlayersScript.myOutline.OutlineWidth = 10;
                 }
-                else if(OtherPlayer == null)
+                else if (OtherPlayer == null)
                 {
                     OtherPlayersOutline.OutlineWidth = 10;
                 }
@@ -291,7 +291,8 @@ public class PlayerController3D : MonoBehaviour
 
     void CheckForInteraction()
     {
-        Ray ray = new Ray(PlayerCamera.position, PlayerCamera.position);
+        // FIXED: Changed from PlayerCamera.position to PlayerCamera.forward
+        Ray ray = new Ray(PlayerCamera.position, PlayerCamera.forward);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, 5f, Interact))
@@ -299,19 +300,20 @@ public class PlayerController3D : MonoBehaviour
         }
         else
         {
-           
+
         }
     }
 
 
     void FixedUpdate()
     {
-        Vector3 move = rb.position + transform.TransformDirection(moveInput) * speed * Time.fixedDeltaTime;
-        rb.MovePosition(move);
+        // FIXED: Changed from MovePosition to velocity-based movement for proper collision detection
+        Vector3 moveDirection = transform.TransformDirection(moveInput).normalized;
+        Vector3 targetVelocity = moveDirection * speed;
+        targetVelocity.y = rb.linearVelocity.y; // Preserve vertical velocity for jumping/gravity
+        rb.linearVelocity = targetVelocity;
+
         CheckForInteraction();
-
-        
-
     }
 
     void LateUpdate()
