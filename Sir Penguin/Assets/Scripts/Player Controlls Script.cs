@@ -113,6 +113,8 @@ public class PlayerController3D : MonoBehaviour
         RunSpeed = speed * SpeedMultiplier;
         ShootScript = GetComponent<ShootManager>();
         // PausePanel.SetActive(false);
+
+        SetSpawnPoint();
     }
 
     // MOVEMENT
@@ -465,6 +467,32 @@ public class PlayerController3D : MonoBehaviour
     bool IsGrounded()
     {
         return Physics.Raycast(transform.position, Vector3.down, 1.1f);
+    }
+
+    void SetSpawnPoint()
+    {
+        string spawnTag = "";
+
+        if (playerInput.playerIndex == 0)
+        {
+            spawnTag = "P1Spawn";
+        }
+        else if (playerInput.playerIndex == 1)
+        {
+            spawnTag = "P2Spawn";
+        }
+
+        GameObject spawnPoint = GameObject.FindGameObjectWithTag(spawnTag);
+
+        if (spawnPoint != null)
+        {
+            transform.position = spawnPoint.transform.position;
+            transform.rotation = spawnPoint.transform.rotation;
+        }
+        else
+        {
+            Debug.LogWarning("Spawn point not found for tag: " + spawnTag);
+        }
     }
 
 }
