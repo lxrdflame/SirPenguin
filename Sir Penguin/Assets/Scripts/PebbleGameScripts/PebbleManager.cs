@@ -26,7 +26,8 @@ public class PebbleManager : MonoBehaviour
         {
             if (spawnPoints[i].childCount == 0)
             {
-                Instantiate(pebblePrefab, spawnPoints[i].position, Quaternion.identity);
+                GameObject Pebble = Instantiate(pebblePrefab, spawnPoints[i].position, Quaternion.identity);
+                Pebble.transform.SetParent(spawnPoints[i].transform);
             }
         }
 

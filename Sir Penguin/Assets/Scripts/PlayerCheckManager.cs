@@ -23,15 +23,15 @@ public class PlayerCheckManager : MonoBehaviour
         if (playerInput.playerIndex == 0)
         {
             Destroy(Player2MiniMap);
-            Destroy(Player1MiniCam);
+            Destroy(Player2MiniCam);
             indicatorMesh = Indicator.GetComponent<MeshRenderer>();
             indicatorMaterial = indicatorMesh.materials[0];
             indicatorMaterial.color = Color.blue;
         }
-        else
+        else if (playerInput.playerIndex == 1) 
         {
             Destroy(Player1MiniMap);
-            Destroy(Player2MiniCam);
+            Destroy(Player1MiniCam);
             indicatorMesh = Indicator.GetComponent<MeshRenderer>();
             indicatorMaterial = indicatorMesh.materials[0];
             indicatorMaterial.color = Color.red;
