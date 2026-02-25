@@ -8,11 +8,13 @@ public class EnvironmentalInteractions : MonoBehaviour
     [SerializeField] private int jumpForce;
     [SerializeField] private PlayerWallet playerWalletScript;
     [SerializeField] private List<Transform> PebblePositions;
+    private HpManager hpManagerScript;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerWalletScript = GetComponent<PlayerWallet>();
+        hpManagerScript = GetComponent<HpManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,7 +38,13 @@ public class EnvironmentalInteractions : MonoBehaviour
                     break;
                 }
             }
-            
+
+        }
+        else if (other.CompareTag("SnowBall"))
+        {
+            hpManagerScript.DepleteHP(10);
+            Destroy(other.gameObject,0.05f);
+            hpManagerScript.HpRestore();
         }
     }
     public void OnJumpPad()

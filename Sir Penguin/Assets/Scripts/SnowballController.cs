@@ -17,7 +17,7 @@ public class SnowballController : MonoBehaviour
             {
                 atPoint = true;
                 GameObject spark = Instantiate(SparkPrefab, transform.position, Quaternion.identity);
-                Destroy(spark, 2);
+                Destroy(spark, 0.15f);
             }
         }
     }

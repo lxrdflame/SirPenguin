@@ -10,6 +10,11 @@ TagManager:
   - Pebble
   - P1Spawn
   - P2Spawn
+  - SnowBall
+  - P1HpSlider
+  - P1StaminaSlider
+  - P2StaminaSlider
+  - P2HpSlider
   layers:
   - Default
   - TransparentFX
