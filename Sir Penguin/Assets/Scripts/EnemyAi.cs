@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,6 +31,10 @@ public class EnemyAi : MonoBehaviour
 
     private bool isAttacking = false;
 
+    [SerializeField] private List<string> AnimationsBools;
+
+
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -36,6 +42,42 @@ public class EnemyAi : MonoBehaviour
 
         FindPlayers();
         GoToNextPatrolPoint();
+    }
+
+    void PlayWalk()
+    {
+        for(int i = 0; i < AnimationsBools.Count; i++)
+        {
+            animator.SetBool(AnimationsBools[i], false);
+        }
+        animator.SetBool(AnimationsBools[0], true);
+    }
+
+    void PlayChase()
+    {
+        for (int i = 0; i < AnimationsBools.Count; i++)
+        {
+            animator.SetBool(AnimationsBools[i], false);
+        }
+        animator.SetBool(AnimationsBools[1], true);
+    }
+
+    void PlayAttack()
+    {
+        for (int i = 0; i < AnimationsBools.Count; i++)
+        {
+            animator.SetBool(AnimationsBools[i], false);
+        }
+        animator.SetBool(AnimationsBools[2], true);
+    }
+
+    void PlayIdle()
+    {
+        for (int i = 0; i < AnimationsBools.Count; i++)
+        {
+            animator.SetBool(AnimationsBools[i], false);
+        }
+        animator.SetBool(AnimationsBools[3], true);
     }
 
     void Update()
