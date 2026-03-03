@@ -40,44 +40,10 @@ public class EnemyAi : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
 
+        agent.autoBraking = false; 
+
         FindPlayers();
         GoToNextPatrolPoint();
-    }
-
-    void PlayWalk()
-    {
-        for(int i = 0; i < AnimationsBools.Count; i++)
-        {
-            animator.SetBool(AnimationsBools[i], false);
-        }
-        animator.SetBool(AnimationsBools[0], true);
-    }
-
-    void PlayChase()
-    {
-        for (int i = 0; i < AnimationsBools.Count; i++)
-        {
-            animator.SetBool(AnimationsBools[i], false);
-        }
-        animator.SetBool(AnimationsBools[1], true);
-    }
-
-    void PlayAttack()
-    {
-        for (int i = 0; i < AnimationsBools.Count; i++)
-        {
-            animator.SetBool(AnimationsBools[i], false);
-        }
-        animator.SetBool(AnimationsBools[2], true);
-    }
-
-    void PlayIdle()
-    {
-        for (int i = 0; i < AnimationsBools.Count; i++)
-        {
-            animator.SetBool(AnimationsBools[i], false);
-        }
-        animator.SetBool(AnimationsBools[3], true);
     }
 
     void Update()
@@ -89,7 +55,18 @@ public class EnemyAi : MonoBehaviour
 
         currentTarget = GetClosestPlayer();
 
-        if (currentTarget == null) return;
+        HandleState();
+        HandleBehaviour();
+        HandleAnimation();
+    }
+
+    void HandleState()
+    {
+        if (currentTarget == null)
+        {
+            currentState = State.Patrol;
+            return;
+        }
 
         float distance = Vector3.Distance(transform.position, currentTarget.position);
 
@@ -99,26 +76,32 @@ public class EnemyAi : MonoBehaviour
             currentState = State.Chase;
         else
             currentState = State.Patrol;
+    }
 
+    void HandleBehaviour()
+    {
         switch (currentState)
         {
             case State.Patrol:
                 isAttacking = false;
-                animator.ResetTrigger("Attack");
+                agent.isStopped = false;
 
-                if (!agent.pathPending && agent.remainingDistance < 0.5f)
+                if (!agent.hasPath || agent.remainingDistance <= agent.stoppingDistance)
+                {
                     GoToNextPatrolPoint();
+                }
                 break;
 
             case State.Chase:
                 isAttacking = false;
-                animator.ResetTrigger("Attack");
+                agent.isStopped = false;
 
-                agent.SetDestination(currentTarget.position);
+                if (currentTarget != null)
+                    agent.SetDestination(currentTarget.position);
                 break;
 
             case State.Attack:
-                agent.ResetPath();
+                agent.isStopped = true;
 
                 if (!isAttacking)
                 {
@@ -127,7 +110,10 @@ public class EnemyAi : MonoBehaviour
                 }
                 break;
         }
+    }
 
+    void HandleAnimation()
+    {
         bool isMoving = agent.velocity.magnitude > 0.1f;
         animator.SetBool("isMoving", isMoving);
     }
@@ -148,20 +134,20 @@ public class EnemyAi : MonoBehaviour
 
         if (player1 != null)
         {
-            float dist1 = Vector3.Distance(transform.position, player1.position);
-            if (dist1 < minDistance)
+            float dist = Vector3.Distance(transform.position, player1.position);
+            if (dist < minDistance)
             {
-                minDistance = dist1;
+                minDistance = dist;
                 closest = player1;
             }
         }
 
         if (player2 != null)
         {
-            float dist2 = Vector3.Distance(transform.position, player2.position);
-            if (dist2 < minDistance)
+            float dist = Vector3.Distance(transform.position, player2.position);
+            if (dist < minDistance)
             {
-                minDistance = dist2;
+                minDistance = dist;
                 closest = player2;
             }
         }
@@ -171,7 +157,9 @@ public class EnemyAi : MonoBehaviour
 
     void GoToNextPatrolPoint()
     {
-        if (patrolPoints.Length == 0) return;
+        if (patrolPoints == null || patrolPoints.Length == 0) return;
+
+        if (patrolPoints[patrolIndex] == null) return;
 
         agent.SetDestination(patrolPoints[patrolIndex].position);
         patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
