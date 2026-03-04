@@ -96,6 +96,10 @@ public class PlayerController3D : MonoBehaviour
     private bool isRunning;
     private bool isSliding;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shootSound;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -199,6 +203,11 @@ public class PlayerController3D : MonoBehaviour
             ShootScript.isShooting = true;
             isShooting = true;
             ShootScript.OnShoot();
+
+            if (shootSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(shootSound);
+            }
         }
         else if (context.canceled)
         {
