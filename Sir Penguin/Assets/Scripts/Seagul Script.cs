@@ -8,16 +8,16 @@ public class SeagulScript : MonoBehaviour
 {
     [SerializeField]
     private List<Transform> FlyPoints;
-    [SerializeField] private int FlySpeed; 
+    [SerializeField] private int FlySpeed;
     [SerializeField] private int FlyIndex;
-    [SerializeField]private Transform TargetFlyPoint;
+    [SerializeField] private Transform TargetFlyPoint;
 
     //player Checker
     public List<bool> playerHasPebbles;
     public List<bool> canAttckPlayer;
     [SerializeField] private List<Transform> Players;
     [SerializeField] private int seagullAttackChance;
-    [SerializeField]private bool canGenerateNewNumber;
+    [SerializeField] private bool canGenerateNewNumber;
 
     //Seagull Animations
     private Animator animator;
@@ -66,9 +66,9 @@ public class SeagulScript : MonoBehaviour
 
         transform.LookAt(TargetFlyPoint);
         transform.position = Vector3.MoveTowards(transform.position, TargetFlyPoint.position, FlySpeed * Time.deltaTime);
-        
-        
-        float distance = Vector3.Distance(transform.position , TargetFlyPoint.position);
+
+
+        float distance = Vector3.Distance(transform.position, TargetFlyPoint.position);
         if (distance <= 0)
         {
             ChangeFlyPoint();
@@ -108,5 +108,6 @@ public class SeagulScript : MonoBehaviour
         StartCoroutine(SeagullAttackChances());
 
     }
+
 
 }

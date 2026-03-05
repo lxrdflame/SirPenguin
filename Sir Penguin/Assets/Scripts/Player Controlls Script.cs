@@ -295,17 +295,19 @@ public class PlayerController3D : MonoBehaviour
     IEnumerator SlideAnimation()
     {
         isSliding = true;
-        rb.AddForce(transform.forward * forceAmount, ForceMode.Force);
-        yield return new WaitForSeconds(forceDuration);
         if (playerinput.playerIndex == 0)
         {
             seagullScript.canAttckPlayer[0] = false;
+
         }
         else
         {
             seagullScript.canAttckPlayer[1] = false;
 
         }
+        rb.AddForce(transform.forward * forceAmount, ForceMode.Force);
+        yield return new WaitForSeconds(forceDuration);
+       
         isSliding = false;
 
     }
