@@ -15,6 +15,7 @@ TagManager:
   - P1StaminaSlider
   - P2StaminaSlider
   - P2HpSlider
+  - Seagull
   layers:
   - Default
   - TransparentFX

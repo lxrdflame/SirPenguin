@@ -3,10 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerCheckManager : MonoBehaviour
 {
-    //[SerializeField]
-    //private GameObject PlayerManagerGameObject;
-    //[SerializeField]
-    //private PlayerInputManager PlayerInputManager;
+
     [SerializeField]
     private PlayerInput playerInput;
 
@@ -17,8 +14,7 @@ public class PlayerCheckManager : MonoBehaviour
     [SerializeField] private MeshRenderer indicatorMesh;
     private void Start()
     {
-        //PlayerManagerGameObject = GameObject.FindGameObjectWithTag("Manager");
-        //PlayerInputManager = PlayerManagerGameObject.GetComponent<PlayerInputManager>();
+        
         playerInput = GetComponent<PlayerInput>();
         if (playerInput.playerIndex == 0)
         {

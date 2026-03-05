@@ -86,6 +86,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MapControl",
+                    "type": "Button",
+                    "id": "9547e9a5-51f0-41e6-b57a-de8c68322c6d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -361,6 +370,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Deposit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e80ebfbd-c4ff-40c2-9b8f-88d32246afc8",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MapControl",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -57,7 +57,6 @@ public class EnemyAi : MonoBehaviour
 
         HandleState();
         HandleBehaviour();
-        HandleAnimation();
     }
 
     void HandleState()
@@ -112,11 +111,7 @@ public class EnemyAi : MonoBehaviour
         }
     }
 
-    void HandleAnimation()
-    {
-        bool isMoving = agent.velocity.magnitude > 0.1f;
-        animator.SetBool("isMoving", isMoving);
-    }
+    
 
     void FindPlayers()
     {

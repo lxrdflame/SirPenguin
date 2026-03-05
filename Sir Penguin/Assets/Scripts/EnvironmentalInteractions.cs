@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnvironmentalInteractions : MonoBehaviour
 {
@@ -9,12 +10,14 @@ public class EnvironmentalInteractions : MonoBehaviour
     [SerializeField] private PlayerWallet playerWalletScript;
     [SerializeField] private List<Transform> PebblePositions;
     private HpManager hpManagerScript;
-
+    public SeagulScript seagullScript;
+    private PlayerInput playerInput;
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerWalletScript = GetComponent<PlayerWallet>();
         hpManagerScript = GetComponent<HpManager>();
+        playerInput = GetComponent<PlayerInput>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,6 +28,14 @@ public class EnvironmentalInteractions : MonoBehaviour
         }
         else if (other.CompareTag("Pebble"))
         {
+            if (playerInput.playerIndex == 0)
+            {
+                seagullScript.canAttckPlayer[0] = true;
+            }
+            else
+            {
+                seagullScript.canAttckPlayer[1] = true;
+            }
             playerWalletScript.AddPebbles(1);
             for (int i = 0; i < PebblePositions.Count; i++)
             {
@@ -43,8 +54,32 @@ public class EnvironmentalInteractions : MonoBehaviour
         else if (other.CompareTag("SnowBall"))
         {
             hpManagerScript.DepleteHP(10);
-            Destroy(other.gameObject,0.05f);
+            Destroy(other.gameObject, 0.05f);
             hpManagerScript.HpRestore();
+        }
+        else if (other.CompareTag("Seagull"))
+        {
+            
+            if(playerInput.playerIndex == 0)
+            {
+                seagullScript.canAttckPlayer[0] = false;
+
+            }
+            else
+            {
+                seagullScript.canAttckPlayer[1] = false;
+            }
+            playerWalletScript.RemovePebbles(1);
+
+            for (int i = PebblePositions.Count - 1; i >= 0; i--)
+            {
+                if (PebblePositions[i].childCount == 1)
+                {
+                    GameObject CurrentPebble = PebblePositions[i].GetChild(0).gameObject;
+                    Destroy(CurrentPebble);
+                    break;
+                }
+            }
         }
     }
     public void OnJumpPad()

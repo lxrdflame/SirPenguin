@@ -1,12 +1,52 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerWallet : MonoBehaviour
 {
     public int currentPebbles = 0;
+    [SerializeField] private SeagulScript seagullScript;
+    private PlayerInput playerInput;
 
+    private void Start()
+    {
+        playerInput = GetComponent<PlayerInput>();
+
+    }
+
+    private void Update()
+    {
+        if (currentPebbles > 0)
+        {
+            if (playerInput.playerIndex == 0)
+            {
+                seagullScript.playerHasPebbles[playerInput.playerIndex] = true;
+            }
+            else
+            {
+                seagullScript.playerHasPebbles[playerInput.playerIndex] = true;
+            }
+        }
+        else
+        {
+            if (playerInput.playerIndex == 0)
+            {
+                seagullScript.playerHasPebbles[playerInput.playerIndex] = false;
+            }
+            else
+            {
+                seagullScript.playerHasPebbles[playerInput.playerIndex] = false;
+            }
+        }
+    }
     public void AddPebbles(int amount)
     {
         currentPebbles += amount;
+        Debug.Log(gameObject.name + " collected pebbles: " + currentPebbles);
+    }
+
+    public void RemovePebbles(int amount)
+    {
+        currentPebbles -= amount;
         Debug.Log(gameObject.name + " collected pebbles: " + currentPebbles);
     }
 
@@ -17,7 +57,7 @@ public class PlayerWallet : MonoBehaviour
         return amount;
     }
 
-    public GameObject pebblePrefab;
+
 
     public void DropPebbles()
     {
@@ -26,7 +66,7 @@ public class PlayerWallet : MonoBehaviour
             Vector3 offset = Random.insideUnitSphere;
             offset.y = 0.5f;
 
-            Instantiate(pebblePrefab, transform.position + offset, Quaternion.identity);
+            //Instantiate(pebblePrefab, transform.position + offset, Quaternion.identity);
         }
 
         currentPebbles = 0;

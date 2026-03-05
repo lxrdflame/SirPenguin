@@ -100,6 +100,17 @@ public class PlayerController3D : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip shootSound;
 
+    //Seagull Settings
+    [SerializeField] private SeagulScript seagullScript;
+    private PlayerInput playerinput;
+
+
+    [Header("Map Settings")]
+    [SerializeField] private Transform PlayerMiniMap;
+    [SerializeField] private Transform OpenMapCamera;
+    [SerializeField] private Vector3 OpenMap, ClosedMap;
+    [SerializeField] private Vector3 OpenMapPosition, ClosedMapPosition;
+    [SerializeField] private Vector3 OpenMapCameraPosition, ClosedMapCameraPosition;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -119,6 +130,8 @@ public class PlayerController3D : MonoBehaviour
         // PausePanel.SetActive(false);
 
         SetSpawnPoint();
+        playerinput = GetComponent<PlayerInput>();
+
     }
 
     // MOVEMENT
@@ -128,6 +141,26 @@ public class PlayerController3D : MonoBehaviour
         moveInput = new Vector3(input.x, 0f, input.y);
     }
 
+
+    //Map Settings
+    public void OnMapOpen(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            PlayerMiniMap.localScale = OpenMap;
+            RectTransform mapPosition = PlayerMiniMap.GetComponent<RectTransform>();
+            mapPosition.position = OpenMapPosition;
+            OpenMapCamera.localPosition = OpenMapCameraPosition;
+        }
+        else if (context.canceled)
+        {
+            PlayerMiniMap.localScale = ClosedMap;
+            RectTransform mapPosition = PlayerMiniMap.GetComponent<RectTransform>();
+            mapPosition.position = ClosedMapPosition;
+            OpenMapCamera.localPosition = ClosedMapCameraPosition;
+
+        }
+    }
     //Inventory System
     public void OnOpenInventorysystem(InputAction.CallbackContext context)
     {
@@ -264,7 +297,15 @@ public class PlayerController3D : MonoBehaviour
         isSliding = true;
         rb.AddForce(transform.forward * forceAmount, ForceMode.Force);
         yield return new WaitForSeconds(forceDuration);
+        if (playerinput.playerIndex == 0)
+        {
+            seagullScript.canAttckPlayer[0] = false;
+        }
+        else
+        {
+            seagullScript.canAttckPlayer[1] = false;
 
+        }
         isSliding = false;
 
     }
