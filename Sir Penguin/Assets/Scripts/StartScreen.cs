@@ -23,4 +23,9 @@ public class StartScreen : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void ExitBtn()
+    {
+        ControlsScreen.SetActive(false);
+    }
 }
