@@ -59,6 +59,7 @@ public class SeagulScript : MonoBehaviour
         else
         {
             animator.SetBool("Attack", false);
+            canGenerateNewNumber = true;
 
         }
 
