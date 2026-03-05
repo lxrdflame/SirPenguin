@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,7 @@ public class PlayerWallet : MonoBehaviour
     public int currentPebbles = 0;
     [SerializeField] private SeagulScript seagullScript;
     private PlayerInput playerInput;
+    public List<GameObject> visualPebbles = new List<GameObject>();
 
     private void Start()
     {
@@ -73,4 +75,6 @@ public class PlayerWallet : MonoBehaviour
 
         //When Rea makes heath script dont forget to call: wallet.DropCoins(); thank conman lol.
     }
+
+
 }
