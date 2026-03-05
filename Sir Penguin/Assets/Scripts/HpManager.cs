@@ -17,6 +17,11 @@ public class HpManager : MonoBehaviour
     private GameObject playerHPSliderGameObject;
     public int maxTimer = 10;
 
+    public GameObject respawnPoint;
+    public Transform P1Spawn;
+    public Transform P2Spawn;
+    public bool isPlayer1;
+
     private void Start()
     {
         ResetHp();
@@ -55,6 +60,11 @@ public class HpManager : MonoBehaviour
     public void DepleteHP(int amount)
     {
         HP -= amount;
+
+        if (HP <= 0)
+        {
+            ReSpawn();
+        }
     }
 
     public void ResetHp()
@@ -65,5 +75,22 @@ public class HpManager : MonoBehaviour
     public void HpRestore()
     {
         HitTimer = maxTimer;
+    }
+
+    public void ReSpawn()
+    {
+        HP = MaxHP;
+        Vector3 spawnPosition;
+
+        if (isPlayer1)
+        {
+            spawnPosition = P1Spawn.position;
+        }
+        else {
+            spawnPosition = P2Spawn.position;
+        }
+
+        transform.position = spawnPosition;
+       
     }
 }
