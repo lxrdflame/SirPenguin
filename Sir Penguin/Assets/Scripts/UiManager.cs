@@ -20,7 +20,7 @@ public class UiManager : MonoBehaviour
         else
         {
             pausepanel.SetActive(true);
-            eventSystem.firstSelectedGameObject = FirstSelectButton[0];
+            eventSystem.SetSelectedGameObject(FirstSelectButton[0]);
             Time.timeScale = 0f;
         }
     }
@@ -30,14 +30,13 @@ public class UiManager : MonoBehaviour
         if (controlsPanel.activeSelf)
         {
             controlsPanel.SetActive(false);
-            eventSystem.firstSelectedGameObject = FirstSelectButton[0];
+            eventSystem.SetSelectedGameObject(FirstSelectButton[0]);
+
 
         }
         else
         {
             controlsPanel.SetActive(true);
-            eventSystem.firstSelectedGameObject = FirstSelectButton[1];
-
         }
     }
 
@@ -62,7 +61,11 @@ public class UiManager : MonoBehaviour
                 eventSystem.SetSelectedGameObject(ButtonResets[1]);
             }
 
+        }
 
+        if (controlsPanel.activeSelf)
+        {
+            eventSystem.SetSelectedGameObject(FirstSelectButton[1]);
         }
     }
 
