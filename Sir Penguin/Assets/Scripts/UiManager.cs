@@ -8,7 +8,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private List<GameObject> FirstSelectButton;
     [SerializeField] private GameObject pausepanel, controlsPanel;
-
+    [SerializeField] private List<GameObject> ButtonResets;
     public void OnPauseMenu()
     {
         if (pausepanel.activeSelf)
@@ -46,7 +46,24 @@ public class UiManager : MonoBehaviour
         pausepanel.SetActive(false);
         Time.timeScale = 1f;
 
+
     }
 
+    void Update()
+    {
+        if (eventSystem.currentSelectedGameObject != null)
+        {
+            if (eventSystem.currentSelectedGameObject.name == "HpSlider")
+            {
+                eventSystem.SetSelectedGameObject(ButtonResets[0]);
+            }
+            else if (eventSystem.currentSelectedGameObject.name == "Stamina Slider")
+            {
+                eventSystem.SetSelectedGameObject(ButtonResets[1]);
+            }
+
+
+        }
+    }
 
 }
