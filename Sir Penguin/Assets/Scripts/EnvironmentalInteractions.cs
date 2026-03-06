@@ -12,12 +12,34 @@ public class EnvironmentalInteractions : MonoBehaviour
     private HpManager hpManagerScript;
     public SeagulScript seagullScript;
     private PlayerInput playerInput;
+
+    //Desposite Hut Settings
+    [SerializeField] private Transform DepositeHut, DepositeUI;
+    [SerializeField] private int MaxDistance;
+    public Transform Camera;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerWalletScript = GetComponent<PlayerWallet>();
         hpManagerScript = GetComponent<HpManager>();
         playerInput = GetComponent<PlayerInput>();
+    }
+
+    private void Update()
+    {
+        float Distance = Vector3.Distance(transform.position, DepositeHut.position);
+        if (Distance <= MaxDistance)
+        {
+            DepositeUI.gameObject.SetActive(true);
+            DepositeUI.LookAt(Camera.position);
+        }
+        else
+        {
+            DepositeUI.gameObject.SetActive(false);
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)
