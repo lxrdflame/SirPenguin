@@ -16,6 +16,9 @@ TagManager:
   - P2StaminaSlider
   - P2HpSlider
   - Seagull
+  - StartTrigger
+  - ControlsTrigger
+  - ExitTrigger
   layers:
   - Default
   - TransparentFX
