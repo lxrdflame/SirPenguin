@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerDepositHandlet : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerDepositHandlet : MonoBehaviour
 
     private PlayerWallet wallet;
     private CashBox currentBox;
-
+    [SerializeField] private RawImage triangleUI;
     private void Start()
     {
         wallet = GetComponent<PlayerWallet>();
@@ -54,10 +55,13 @@ public class PlayerDepositHandlet : MonoBehaviour
         if (context.started)
         {
             isHoldingDeposit = true;
+            triangleUI.color = Color.green;
         }
         else if (context.canceled)
         {
             isHoldingDeposit = false;
+            triangleUI.color = Color.white;
+
         }
     }
 }

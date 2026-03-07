@@ -22,10 +22,14 @@ public class HpManager : MonoBehaviour
     public Transform P2Spawn;
     public bool isPlayer1;
 
+    //player Wallet
+    [SerializeField] private PlayerWallet walletScript;
+
     private void Start()
     {
         ResetHp();
         playerInput = GetComponent<PlayerInput>();
+        walletScript = GetComponent<PlayerWallet>();
 
         if (playerInput != null)
         {
@@ -91,6 +95,8 @@ public class HpManager : MonoBehaviour
         }
 
         transform.position = spawnPosition;
+
+        walletScript.DropPebbles();
        
     }
 }

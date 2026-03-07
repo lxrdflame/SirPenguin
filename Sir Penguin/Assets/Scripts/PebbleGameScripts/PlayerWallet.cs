@@ -8,11 +8,12 @@ public class PlayerWallet : MonoBehaviour
     [SerializeField] private SeagulScript seagullScript;
     private PlayerInput playerInput;
     public List<GameObject> visualPebbles = new List<GameObject>();
+    [SerializeField] private EnvironmentalInteractions enteractionsScript;
 
     private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
-
+        enteractionsScript = GetComponent<EnvironmentalInteractions>();
     }
 
     private void Update()
@@ -56,7 +57,10 @@ public class PlayerWallet : MonoBehaviour
     {
         int amount = currentPebbles;
         currentPebbles = 0;
+        enteractionsScript.RemoveAllPebbles();
         return amount;
+
+        //Destroy Pebbles
     }
 
 
@@ -73,7 +77,7 @@ public class PlayerWallet : MonoBehaviour
 
         currentPebbles = 0;
 
-        //When Rea makes heath script dont forget to call: wallet.DropCoins(); thank conman lol.
+        enteractionsScript.RemoveAllPebbles();
     }
 
 

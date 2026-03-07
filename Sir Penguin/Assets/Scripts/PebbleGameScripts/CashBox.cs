@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class CashBox : MonoBehaviour
 {
@@ -9,8 +10,15 @@ public class CashBox : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private int totalDeposited = 0;
 
-    private float currentTimer = 0f;
+    [SerializeField]private float currentTimer = 0f;
     private PlayerWallet currentPlayer;
+
+    [SerializeField] private Slider fillSlider;
+
+    private void Start()
+    {
+        fillSlider.maxValue = depositTime;
+    }
 
     public void StartDeposit(PlayerWallet wallet)
     {
@@ -23,7 +31,10 @@ public class CashBox : MonoBehaviour
             currentTimer = 0f;
         }
 
-        currentTimer += Time.deltaTime;
+        if (currentPlayer.currentPebbles > 0)
+        {
+            currentTimer += Time.deltaTime;
+        }
 
         if (currentTimer >= depositTime)
         {
@@ -42,5 +53,12 @@ public class CashBox : MonoBehaviour
     {
         currentTimer = 0f;
         currentPlayer = null;
+
+    }
+
+    public void Update()
+    {
+        fillSlider.value = currentTimer;
+
     }
 }
