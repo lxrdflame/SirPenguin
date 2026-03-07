@@ -104,6 +104,21 @@ public class EnvironmentalInteractions : MonoBehaviour
             }
         }
     }
+
+    public void RemoveAllPebbles()
+    {
+        for(int i = 0; i < PebblePositions.Count; i++)
+        {
+            if (PebblePositions[i].childCount == 1)
+            {
+                GameObject CurrentPebble = PebblePositions[i].GetChild(0).gameObject;
+                if(CurrentPebble != null)
+                {
+                    Destroy(CurrentPebble);
+                }
+            }
+        }
+    }
     public void OnJumpPad()
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
