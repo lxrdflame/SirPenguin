@@ -4,30 +4,17 @@ using UnityEngine.InputSystem;
 public class Highlight : MonoBehaviour
 {
     [Header("Player Settings")]
-    public int playerIndex; 
+    public int playerIndex;
 
     [Header("References")]
-    public Renderer cashboxRenderer;
-
-    [Header("Glow")]
-    public Color glowColor = Color.yellow;
-    public float glowIntensity = 3f;
-
-    private Material mat;
-    private Color originalEmission;
+    public GameObject silhouetteObject;
 
     private PlayerWallet targetWallet;
 
     void Start()
     {
-        mat = cashboxRenderer.material;
-
-        if (mat.HasProperty("_EmissionColor"))
-        {
-            originalEmission = mat.GetColor("_EmissionColor");
-        }
-
         FindCorrectPlayer();
+        silhouetteObject.SetActive(false);
     }
 
     void FindCorrectPlayer()
@@ -51,23 +38,8 @@ public class Highlight : MonoBehaviour
         if (targetWallet == null) return;
 
         if (targetWallet.currentPebbles > 0)
-        {
-            EnableGlow();
-        }
+            silhouetteObject.SetActive(true);
         else
-        {
-            DisableGlow();
-        }
-    }
-
-    void EnableGlow()
-    {
-        mat.EnableKeyword("_EMISSION");
-        mat.SetColor("_EmissionColor", glowColor * glowIntensity);
-    }
-
-    void DisableGlow()
-    {
-        mat.SetColor("_EmissionColor", originalEmission);
+            silhouetteObject.SetActive(false);
     }
 }
