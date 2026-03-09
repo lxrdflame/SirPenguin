@@ -61,4 +61,9 @@ public class CashBox : MonoBehaviour
         fillSlider.value = currentTimer;
 
     }
+
+    public int GetScore()
+    {
+        return totalDeposited;
+    }
 }
