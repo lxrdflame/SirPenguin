@@ -60,4 +60,15 @@ public class Menu : MonoBehaviour
             buttons[i].SetActive(true);
         }
     }
+
+    public void OnClickBack()
+    {
+        confirmationPanel.SetActive(false);
+        eventSystem.SetSelectedGameObject(startGameObject);
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].SetActive(true);
+        }
+    }
 }
