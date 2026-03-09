@@ -19,6 +19,9 @@ public class SeagulScript : MonoBehaviour
     [SerializeField] private int seagullAttackChance;
     [SerializeField] private bool canGenerateNewNumber;
 
+    [SerializeField] private List<GameObject> seagullWarning;
+    private bool warningPlaying;
+
     //Seagull Animations
     private Animator animator;
     private void Start()
@@ -47,7 +50,16 @@ public class SeagulScript : MonoBehaviour
         {
             TargetFlyPoint = FlyPoints[FlyIndex];
         }
-
+        
+        
+        if (playerHasPebbles[0] && !canAttckPlayer[0])
+        {
+            StartCoroutine(ReAttackPlayer());
+        }
+        else if (playerHasPebbles[1] && !canAttckPlayer[1])
+        {
+            StartCoroutine(ReAttackPlayer());
+        }
 
         //Check if You can Generate Number 
         if (Players.Contains(TargetFlyPoint))
@@ -55,11 +67,17 @@ public class SeagulScript : MonoBehaviour
             canGenerateNewNumber = false;
             animator.SetBool("Attack", true);
             FlySpeed = 25;
+            if (!warningPlaying)
+            {
+                StartCoroutine(PlayWarning());
+            }
         }
         else
         {
             animator.SetBool("Attack", false);
             canGenerateNewNumber = true;
+            warningPlaying = false;
+
 
         }
 
@@ -90,6 +108,7 @@ public class SeagulScript : MonoBehaviour
             // Switch from player to first fly point
             FlyIndex = 0;
             TargetFlyPoint = FlyPoints[FlyIndex];
+            StartCoroutine(SeagullAttackChances());
         }
     }
 
@@ -111,4 +130,43 @@ public class SeagulScript : MonoBehaviour
     }
 
 
+    IEnumerator PlayWarning()
+    {
+        if (Players.Contains(TargetFlyPoint))
+        {
+            warningPlaying = true;
+            if (Players[0] == TargetFlyPoint)
+            {
+                seagullWarning[0].SetActive(true);
+            }
+            else if (Players[1] == TargetFlyPoint)
+            {
+                seagullWarning[1].SetActive(true);
+            }
+            yield return new WaitForSeconds(0.5f);
+
+            for (int i = 0; i < seagullWarning.Count; i++)
+            {
+                seagullWarning[i].SetActive(false);
+            }
+            StartCoroutine(PlayWarning());
+        }
+    }
+
+
+    IEnumerator ReAttackPlayer()
+    {
+        yield return new WaitForSeconds(4);
+
+        if (playerHasPebbles[0])
+        {
+            canAttckPlayer[0] = true;
+        }
+        else if (playerHasPebbles[1])
+        {
+            canAttckPlayer[1] = true;
+        }
+
+
+    }
 }
