@@ -50,6 +50,8 @@ public class EnvironmentalInteractions : MonoBehaviour
         }
         else if (other.CompareTag("Pebble"))
         {
+            AudioSource PebbleAudio = other.GetComponent<AudioSource>();
+            PebbleAudio.Play();
             if (playerInput.playerIndex == 0)
             {
                 seagullScript.canAttckPlayer[0] = true;

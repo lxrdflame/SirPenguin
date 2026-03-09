@@ -1234,6 +1234,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2967291821450389838}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 3979311367603927463}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
       insertIndex: -1
@@ -1244,9 +1247,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6961016359911121546}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2967291821450389838}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9cbd08b4d2320da469eb6ad302b442bf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7552326964731434818}
@@ -1411,6 +1411,15 @@ MonoBehaviour:
   forceDuration: 3
   audioSource: {fileID: 7151540785328676989}
   shootSound: {fileID: 8300000, guid: a8d17868a4ea0164c9b8ee659f98e817, type: 3}
+  seagullScript: {fileID: 0}
+  PlayerMiniMap: {fileID: 0}
+  OpenMapCamera: {fileID: 0}
+  OpenMap: {x: 0, y: 0, z: 0}
+  ClosedMap: {x: 0, y: 0, z: 0}
+  OpenMapPosition: {x: 0, y: 0, z: 0}
+  ClosedMapPosition: {x: 0, y: 0, z: 0}
+  OpenMapCameraPosition: {x: 0, y: 0, z: 0}
+  ClosedMapCameraPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &1335827118459958031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1513,38 +1522,6 @@ MonoBehaviour:
     m_ActionId: 7607c7b6-cd76-4816-beef-bd0341cfe950
     m_ActionName: 'UI/Submit[/Keyboard/enter,/DualShock4GamepadHID/buttonSouth]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 15cef263-9014-4fd5-94d9-4e4a6234a6ef
-    m_ActionName: 'UI/Cancel[/Keyboard/escape,/DualShock4GamepadHID/buttonEast]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 32b35790-4ed0-4e9a-aa41-69ac6d629449
-    m_ActionName: 'UI/Point[/Mouse/position,/Pen/position]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 3c7022bf-7922-4f7c-a998-c437916075ad
-    m_ActionName: 'UI/Click[/Mouse/leftButton,/Pen/tip]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 44b200b1-1557-4083-816c-b22cbdf77ddf
-    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dad70c86-b58c-4b17-88ad-f5e53adf419e
-    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0489e84a-4833-4c40-bfae-cea84b696689
-    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 24908448-c609-4bc3-a128-ea258674378a
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
-    m_ActionName: UI/TrackedDeviceOrientation
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6323174138222140410}
         m_TargetAssemblyTypeName: PlayerController3D, Assembly-CSharp
@@ -1608,6 +1585,30 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c8aeb2b2-e77f-4808-a7c0-5b107f824df6
     m_ActionName: 'Player/Deposit[/DualSenseGamepadHID/buttonNorth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9547e9a5-51f0-41e6-b57a-de8c68322c6d
+    m_ActionName: 'Player/MapControl[/DualShock4GamepadHID/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: df0a3c45-2582-413e-a67a-48c13a4f847e
+    m_ActionName: 'Player/Pause[/DualShock4GamepadHID/start]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4c629cf-2a41-4409-b56d-df1d82c57342
+    m_ActionName: 'UI/CloseUI[/DualShock4GamepadHID/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2796ee73-b739-4940-803b-0ff9670d07d9
+    m_ActionName: 'UI1/Navigate[/DualShock4GamepadHID/leftStick/up,/DualShock4GamepadHID/rightStick/up,/DualShock4GamepadHID/leftStick/down,/DualShock4GamepadHID/rightStick/down,/DualShock4GamepadHID/leftStick/left,/DualShock4GamepadHID/rightStick/left,/DualShock4GamepadHID/leftStick/right,/DualShock4GamepadHID/rightStick/right,/DualShock4GamepadHID/dpad]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8cbe84e9-8e44-444d-ba4d-8fc340694a53
+    m_ActionName: 'UI1/Submit[/DualShock4GamepadHID/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a8bf13c7-eca4-41ac-85ee-ecdd0fc3b1b3
+    m_ActionName: 'UI1/CloseUI[/DualShock4GamepadHID/buttonEast]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -1632,6 +1633,7 @@ MonoBehaviour:
   ShootPoint: {fileID: 1885250848425711741}
   isRunning: 0
   PlayerCamera: {fileID: 3572165847722631165}
+  ShootSound: {fileID: 0}
 --- !u!114 &-346703281096887382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1652,6 +1654,11 @@ MonoBehaviour:
   - {fileID: 8871166953964833237}
   - {fileID: 2732396406680399554}
   - {fileID: 3738308156918228096}
+  seagullScript: {fileID: 0}
+  DepositeHut: {fileID: 0}
+  DepositeUI: {fileID: 0}
+  MaxDistance: 0
+  Camera: {fileID: 0}
 --- !u!114 &-3941475812643909995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1665,7 +1672,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
   currentPebbles: 0
-  pebblePrefab: {fileID: 4502233135952737199, guid: 084cac559e2a10641a1190d7a1935b20, type: 3}
+  seagullScript: {fileID: 0}
+  visualPebbles: []
+  enteractionsScript: {fileID: 0}
 --- !u!114 &-4354181458214189431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1678,6 +1687,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568c1c91fc4c95f4bb959e3baf24af29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDepositHandlet
+  depositDistance: 3
+  cashBoxLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  triangleUI: {fileID: 0}
 --- !u!114 &8290702725621033224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1691,10 +1705,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCheckManager
   playerInput: {fileID: 0}
-  Player1MiniMap: {fileID: 2586281795399109098}
-  Player2MiniMap: {fileID: 1895703422384677857}
-  Player1MiniCam: {fileID: 7589079906463139488}
-  Player2MiniCam: {fileID: 2859739533333979637}
   Indicator: {fileID: 6845665122172348920}
   indicatorMaterial: {fileID: 0}
   indicatorMesh: {fileID: 0}
@@ -1738,6 +1748,11 @@ MonoBehaviour:
   HPSlider: {fileID: 0}
   HitTimer: 0
   maxTimer: 10
+  respawnPoint: {fileID: 0}
+  P1Spawn: {fileID: 0}
+  P2Spawn: {fileID: 0}
+  isPlayer1: 0
+  walletScript: {fileID: 0}
 --- !u!82 &7151540785328676989
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1929,19 +1944,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e32cbc4eaf75ca6408dd88acae624212, type: 3}
---- !u!1 &2859739533333979637 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9134365649559172289, guid: e32cbc4eaf75ca6408dd88acae624212, type: 3}
-  m_PrefabInstance: {fileID: 6443556905393739060}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6961016359911121546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4176635252475508670, guid: e32cbc4eaf75ca6408dd88acae624212, type: 3}
-  m_PrefabInstance: {fileID: 6443556905393739060}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7589079906463139488 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3476162270600893332, guid: e32cbc4eaf75ca6408dd88acae624212, type: 3}
   m_PrefabInstance: {fileID: 6443556905393739060}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6914525962461072434
@@ -2061,16 +2066,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bf6c23dffe5eb9459552a5ab536d7d6, type: 3}
---- !u!1 &1895703422384677857 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5024803883332825043, guid: 9bf6c23dffe5eb9459552a5ab536d7d6, type: 3}
-  m_PrefabInstance: {fileID: 6914525962461072434}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2586281795399109098 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8939932428041422296, guid: 9bf6c23dffe5eb9459552a5ab536d7d6, type: 3}
-  m_PrefabInstance: {fileID: 6914525962461072434}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7852886988248159966 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3678978715832081132, guid: 9bf6c23dffe5eb9459552a5ab536d7d6, type: 3}

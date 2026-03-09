@@ -132,6 +132,8 @@ public class PlayerController3D : MonoBehaviour
         SetSpawnPoint();
         playerinput = GetComponent<PlayerInput>();
 
+       
+
     }
 
     // MOVEMENT
@@ -339,20 +341,7 @@ public class PlayerController3D : MonoBehaviour
         }
     }
 
-    void CheckForInteraction()
-    {
-        // FIXED: Changed from PlayerCamera.position to PlayerCamera.forward
-        Ray ray = new Ray(PlayerCamera.position, PlayerCamera.forward);
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 5f, Interact))
-        {
-        }
-        else
-        {
-
-        }
-    }
 
 
     void FixedUpdate()
@@ -363,7 +352,6 @@ public class PlayerController3D : MonoBehaviour
         targetVelocity.y = rb.linearVelocity.y; // Preserve vertical velocity for jumping/gravity
         rb.linearVelocity = targetVelocity;
 
-        CheckForInteraction();
     }
 
     void LateUpdate()

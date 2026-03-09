@@ -24,10 +24,12 @@ public class SeagulScript : MonoBehaviour
 
     //Seagull Animations
     private Animator animator;
+    AudioSource audioSource;
     private void Start()
     {
         StartCoroutine(SeagullAttackChances());
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -70,6 +72,7 @@ public class SeagulScript : MonoBehaviour
             if (!warningPlaying)
             {
                 StartCoroutine(PlayWarning());
+                audioSource.Play();
             }
         }
         else
@@ -77,6 +80,7 @@ public class SeagulScript : MonoBehaviour
             animator.SetBool("Attack", false);
             canGenerateNewNumber = true;
             warningPlaying = false;
+            audioSource.Stop();
 
 
         }
