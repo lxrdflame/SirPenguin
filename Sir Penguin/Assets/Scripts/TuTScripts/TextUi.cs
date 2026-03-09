@@ -12,6 +12,7 @@ public class TextUi : MonoBehaviour
     private int CollisionCount;
     private PlayerInput playerControls;
     private bool BothPlayersReady;
+    private int pebbleCollisions;
 
 
     void Start()
@@ -39,6 +40,10 @@ public class TextUi : MonoBehaviour
 
             }
         }
+        else if (other.CompareTag("Pebble") && pebbleCollisions == 0)
+        {
+            OnThirdGuideText();
+        }
 
 
     }
@@ -61,6 +66,13 @@ public class TextUi : MonoBehaviour
     void OnSecondGuideText()
     {
         uiText.text = GuideText[1];
+        playerControls.actions.FindActionMap("Player").Disable();
+        UITextContainer.SetActive(true);
+    }
+
+    void OnThirdGuideText()
+    {
+        uiText.text = GuideText[2];
         playerControls.actions.FindActionMap("Player").Disable();
         UITextContainer.SetActive(true);
     }
