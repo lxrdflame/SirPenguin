@@ -1,42 +1,62 @@
+using System.Collections.Generic;
+using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class TextUi : MonoBehaviour
 {
-    public GameObject uiText;
-
-    private bool waitingForInput = false;
+    public TextMeshProUGUI uiText;
+    public GameObject UITextContainer;
+    [SerializeField] private List<string> GuideText;
+    private int CollisionCount;
+    private PlayerInput playerControls;
 
     void Start()
     {
-        if (uiText != null)
-            uiText.SetActive(false);
+        uiText.text = "";
+        playerControls = GetComponent<PlayerInput>();
+        UITextContainer.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerInput>() != null)
+        if (other.CompareTag("ControlsTrigger"))
         {
-            Time.timeScale = 0f; 
-            waitingForInput = true;
+            if (CollisionCount == 0)
+            {
+                CollisionCount++;
+                OnFirstGuideText();
 
-            if (uiText != null)
-                uiText.SetActive(true);
+            }
+            else if (CollisionCount == 1)
+            {
+                OnSecondGuideText();
+            }
         }
+
+
     }
 
-    void Update()
+    public void CloseTextUi()
     {
-        if (!waitingForInput) return;
+        UITextContainer.SetActive(false);
+        playerControls.actions.FindActionMap("Player").Enable();
 
-        if (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame)
-        {
-            Time.timeScale = 1f; 
+    }
 
-            if (uiText != null)
-                uiText.SetActive(false);
+    void OnFirstGuideText()
+    {
+        uiText.text = GuideText[0];
+        playerControls.actions.FindActionMap("Player").Disable();
+        UITextContainer.SetActive(true);
 
-            Destroy(gameObject); 
-        }
+    }
+
+    void OnSecondGuideText()
+    {
+        uiText.text = GuideText[1];
+        playerControls.actions.FindActionMap("Player").Disable();
+        UITextContainer.SetActive(true);
     }
 }
