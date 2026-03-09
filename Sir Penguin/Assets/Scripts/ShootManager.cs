@@ -31,13 +31,13 @@ public class ShootManager : MonoBehaviour
     public void OnShoot()
     {
         StartCoroutine(Shoot());
-        ShootSound.Play();
 
     }
     IEnumerator Shoot()
     {
         if (isShooting)
         {
+            ShootSound.Play();
             yield return new WaitForSeconds(ShootRate);
             Ray ray = new Ray(PlayerCamera.position, PlayerCamera.forward);
             RaycastHit hit;
