@@ -27,11 +27,14 @@ public class TextUi : MonoBehaviour
             {
                 CollisionCount++;
                 OnFirstGuideText();
+                Destroy(other.gameObject);
 
             }
             else if (CollisionCount == 1)
             {
                 OnSecondGuideText();
+                Destroy(other.gameObject);
+
             }
         }
 
