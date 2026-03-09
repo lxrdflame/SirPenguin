@@ -40,6 +40,11 @@ public class PlayerWallet : MonoBehaviour
                 seagullScript.playerHasPebbles[playerInput.playerIndex] = false;
             }
         }
+
+        if(currentPebbles < 0)
+        {
+            currentPebbles = 0;
+        }
     }
     public void AddPebbles(int amount)
     {
