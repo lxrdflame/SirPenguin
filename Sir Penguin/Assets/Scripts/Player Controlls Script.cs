@@ -237,10 +237,6 @@ public class PlayerController3D : MonoBehaviour
             isShooting = true;
             ShootScript.OnShoot();
 
-            if (shootSound != null && audioSource != null)
-            {
-                audioSource.PlayOneShot(shootSound);
-            }
         }
         else if (context.canceled)
         {

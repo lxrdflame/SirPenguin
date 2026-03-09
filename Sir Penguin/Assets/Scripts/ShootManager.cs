@@ -14,6 +14,7 @@ public class ShootManager : MonoBehaviour
     private SnowballController SnowBallScript;
     public bool isRunning;
     public Transform PlayerCamera;
+    public AudioSource ShootSound;
     private void FixedUpdate()
     {
         if (!isRunning)
@@ -22,10 +23,16 @@ public class ShootManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        ShootSound = GetComponent<AudioSource>();
+    }
 
     public void OnShoot()
     {
         StartCoroutine(Shoot());
+        ShootSound.Play();
+
     }
     IEnumerator Shoot()
     {
@@ -34,7 +41,6 @@ public class ShootManager : MonoBehaviour
             yield return new WaitForSeconds(ShootRate);
             Ray ray = new Ray(PlayerCamera.position, PlayerCamera.forward);
             RaycastHit hit;
-
             if (Physics.Raycast(ray, out hit, 10000f))
             {
                 targetPoint = hit.point;

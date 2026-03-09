@@ -11,6 +11,8 @@ public class TextUi : MonoBehaviour
     [SerializeField] private List<string> GuideText;
     private int CollisionCount;
     private PlayerInput playerControls;
+    private bool BothPlayersReady;
+
 
     void Start()
     {
@@ -61,5 +63,10 @@ public class TextUi : MonoBehaviour
         uiText.text = GuideText[1];
         playerControls.actions.FindActionMap("Player").Disable();
         UITextContainer.SetActive(true);
+    }
+
+    public void StartGame()
+    {
+
     }
 }

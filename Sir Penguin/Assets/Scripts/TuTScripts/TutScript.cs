@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class TutScript : MonoBehaviour
 {
     public GameObject ControlsScreen;
+    [SerializeField] private MultiplayerEventSystem eventSystem;
+    [SerializeField] private GameObject ButtonToSelect;
+
 
     private void Start()
     {
