@@ -5,6 +5,7 @@ public class StartScreen : MonoBehaviour
 {
     public GameObject ControlsScreen;
 
+
     public void Start()
     {
         ControlsScreen.SetActive(false);
