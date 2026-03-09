@@ -29,6 +29,11 @@ public class EnemyAi : MonoBehaviour
     public Transform[] patrolPoints;
     private int patrolIndex;
 
+    [Header("Attack Settings")]
+    public int damage = 10;
+    public float attackCooldown = 1f;
+    private float attackTimer;
+
     private bool isAttacking = false;
 
     [SerializeField] private List<string> AnimationsBools;
@@ -102,11 +107,27 @@ public class EnemyAi : MonoBehaviour
             case State.Attack:
                 agent.isStopped = true;
 
-                if (!isAttacking)
+                if (currentTarget != null)
                 {
-                    animator.SetTrigger("Attack");
-                    isAttacking = true;
+                    transform.LookAt(currentTarget);
+
+                    attackTimer -= Time.deltaTime;
+
+                    if (attackTimer <= 0)
+                    {
+                        animator.SetTrigger("Attack");
+
+                        HpManager hp = currentTarget.GetComponent<HpManager>();
+                        if (hp != null)
+                        {
+                            hp.DepleteHP(damage);
+                            hp.HpRestore();
+                        }
+
+                        attackTimer = attackCooldown;
+                    }
                 }
+
                 break;
         }
     }
