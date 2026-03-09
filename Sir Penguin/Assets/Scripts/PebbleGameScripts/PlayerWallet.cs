@@ -9,7 +9,7 @@ public class PlayerWallet : MonoBehaviour
     private PlayerInput playerInput;
     public List<GameObject> visualPebbles = new List<GameObject>();
     [SerializeField] private EnvironmentalInteractions enteractionsScript;
-
+    public AudioClip ChachingSound;
     private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -58,8 +58,13 @@ public class PlayerWallet : MonoBehaviour
         int amount = currentPebbles;
         currentPebbles = 0;
         enteractionsScript.RemoveAllPebbles();
+        AudioSource Chaching = GetComponent<AudioSource>();
+        Chaching.clip = ChachingSound;
+        Chaching.Play();
+
         return amount;
 
+        
         //Destroy Pebbles
     }
 
