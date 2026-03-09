@@ -2728,8 +2728,8 @@ MonoBehaviour:
   - {fileID: 635255430}
   - {fileID: 279634254}
   - {fileID: 573829894}
-  clickSound: {fileID: 8300000, guid: a5f745775993fb040a1ac37eaf2f3756, type: 3}
-  selectedSound: {fileID: 8300000, guid: a5f745775993fb040a1ac37eaf2f3756, type: 3}
+  clickSound: {fileID: 8300000, guid: 0499abe70668a2047af48a82b3037e8e, type: 3}
+  selectedSound: {fileID: 8300000, guid: 0499abe70668a2047af48a82b3037e8e, type: 3}
 --- !u!82 &921631480
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2741,7 +2741,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 0499abe70668a2047af48a82b3037e8e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.661
   m_Pitch: 1
