@@ -4944,6 +4944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutScript
   ControlsScreen: {fileID: 0}
+  eventSystem: {fileID: 0}
+  ButtonToSelect: {fileID: 0}
 --- !u!65 &402680788
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10552,6 +10554,8 @@ MonoBehaviour:
     enemies. ("X" to proceed)
   - WOW you've learnt how to shoot! Now collect a pebble and deposite it into the
     cash box ahead. ("X" to Proceed)
+  - Make sure to watch out for the Seagull because it will try steal one of your
+    pebbles. Sprint and press "0" to belly side to avoid the Seagullslid
 --- !u!1 &844406323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 880501419035748652, guid: f4cd374a929c8d54f83d6a99202d82f5, type: 3}
@@ -15407,6 +15411,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutScript
   ControlsScreen: {fileID: 1341841222}
+  eventSystem: {fileID: 0}
+  ButtonToSelect: {fileID: 0}
 --- !u!54 &1230807709
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16031,6 +16037,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutScript
   ControlsScreen: {fileID: 0}
+  eventSystem: {fileID: 0}
+  ButtonToSelect: {fileID: 0}
 --- !u!1001 &1269195723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16173,6 +16181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutScript
   ControlsScreen: {fileID: 0}
+  eventSystem: {fileID: 0}
+  ButtonToSelect: {fileID: 0}
 --- !u!4 &1275453481 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 33464d62531fa094b8b51c1c9f3e1656, type: 3}
@@ -18674,6 +18684,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutScript
   ControlsScreen: {fileID: 0}
+  eventSystem: {fileID: 0}
+  ButtonToSelect: {fileID: 0}
 --- !u!54 &1463784125
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24639,6 +24651,8 @@ MonoBehaviour:
     enemies. ("X" to proceed)
   - WOW you've learnt how to shoot! Now collect a pebble and deposite it into the
     cash box ahead. ("X" to Proceed)
+  - Make sure to watch out for the Seagull because it will try steal one of your
+    pebbles. Sprint and press "0" to belly side to avoid the Seagullslid
 --- !u!1001 &1964417258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26483,6 +26497,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutScript
   ControlsScreen: {fileID: 1233920046}
+  eventSystem: {fileID: 0}
+  ButtonToSelect: {fileID: 0}
 --- !u!1 &2131966669 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 880501419035748652, guid: f4cd374a929c8d54f83d6a99202d82f5, type: 3}
