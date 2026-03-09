@@ -8,6 +8,8 @@ public class Menu : MonoBehaviour
     public GameObject controlsPanel;
     [SerializeField] private EventSystem eventSystem;
     public GameObject tickGameObject;
+    public GameObject closeGameObject;
+    public GameObject startGameObject;
     public GameObject[] buttons;
 
     public void OnClickStart()
@@ -29,7 +31,13 @@ public class Menu : MonoBehaviour
 
     public void OnClickControls()
     {
-        confirmationPanel.SetActive(true);
+        controlsPanel.SetActive(true);
+        eventSystem.SetSelectedGameObject(closeGameObject);
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].SetActive(false);
+        }
     }
 
     public void OnClickTick()
@@ -40,5 +48,16 @@ public class Menu : MonoBehaviour
     public void OnClickX()
     {
         SceneManager.LoadScene("FreeForAll");
+    }
+
+    public void OnClickClosePanel()
+    {
+        controlsPanel.SetActive(false);
+        eventSystem.SetSelectedGameObject(startGameObject);
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].SetActive(true);
+        }
     }
 }
